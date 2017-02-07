@@ -1,6 +1,6 @@
 {% extends 'blogs/base.html' %}
-
 {% block content %}
+
 
 <div class="container-fluid">
     <div class="row">
@@ -16,13 +16,13 @@
                             {% include 'blogs/form_template.html' %}
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-success btn-md">Submit</button>
+                                <button type="submit" class="btn btn-success btn-md">Update</button>
                             </div>
                         </div>
                     </form>
 
                     <div class="col-sm-offset-2">
-                        <a href="{% url 'blogs:list' %}"><button class="btn btn-info btn-sm">
+                        <a href="{{instance.get_absolute_url}}"><button class="btn btn-info btn-sm">
                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                         Cancel</button>
                         </a>
@@ -33,18 +33,5 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 {% endblock content %}

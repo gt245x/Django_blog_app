@@ -1,6 +1,8 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.core.urlresolvers import reverse
+
 
 # Create your models here.
 
@@ -12,5 +14,14 @@ class Blog(models.Model):
 
     def __unicode__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('blogs:detail', kwargs={'id':self.id})
+
+    def get_editable_url(self):
+        return reverse('blogs:update', kwargs={'id':self.id})
+
+    def get_deletable_url(self):
+        return reverse('blogs:delete', kwargs={'id':self.id})
 
 

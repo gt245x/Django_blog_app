@@ -4,18 +4,32 @@
 <div class="blog-container container-fluid">
     <div class="row">
         <div class="col-sm-12">
-            <h3> Blogs </h3>
+            <h3> {{title}} </h3>
         </div>
-        {% if blogs %}
-            {% for blog in blogs %}
+        {% if blog_list %}
+            {% for blog in blog_list %}
                 <div class="col-sm-8">
                     <div class="thumbnail">
-                        <a href="#">
+                        <a href="{{blog.get_absolute_url}}">
                             <img src="" class="img-responsive"/>
                         </a>
+                        <div class="caption">
+                            <h3><a href="#">{{blog.title}}</a><small> {{blog.timeposted}}</small>
+                            <p>
+                            <p><a href="{{blog.get_absolute_url}}" class="btn btn-primary" role="button">View Details</a></p>
+                        </div>
                     </div>
                 </div>
             {% endfor %}
+        {% else %}
+            <div class="col-sm-12">
+                <br/>
+                <a href="#">
+                    <button type="button" class="btn btn-success">
+                        <span class="glyphicon glyphicon-plus"></span>&nbsp; Create a Blog
+                    </button>
+                </a>
+            </div>
         {% endif %}
 
     </div>
