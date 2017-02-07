@@ -6,16 +6,16 @@
         <div class="col-sm-12">
             <h3> {{title}} </h3>
         </div>
-        {% if blog_list %}
-            {% for blog in blog_list %}
+        {% if blogset %}
+            {% for blog in blogset %}
                 <div class="col-sm-8">
                     <div class="thumbnail">
                         <a href="{{blog.get_absolute_url}}">
                             <img src="" class="img-responsive"/>
                         </a>
                         <div class="caption">
-                            <h3><a href="#">{{blog.title}}</a><small> {{blog.timeposted}}</small>
-                            <p>
+                            <h3><a href="#">{{blog.title}}</a><small> {{blog.timeposted}}</small></h3>
+                            <p>{{blog.content | linebreaks}}</p>
                             <p><a href="{{blog.get_absolute_url}}" class="btn btn-primary" role="button">View Details</a></p>
                         </div>
                     </div>
@@ -24,15 +24,32 @@
         {% else %}
             <div class="col-sm-12">
                 <br/>
-                <a href="#">
+                <a href="{% url 'blogs:create' %}">
                     <button type="button" class="btn btn-success">
                         <span class="glyphicon glyphicon-plus"></span>&nbsp; Create a Blog
                     </button>
                 </a>
             </div>
         {% endif %}
-
     </div>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if blogset.has_previous %}
+            <a href="?{{page_request_var}}={{ blogset.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ blogset.number }} of {{ blogset.paginator.num_pages }}.
+        </span>
+
+        {% if blogset.has_next %}
+            <a href="?{{page_request_var}}={{ blogset.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
+
+
 
 </div>
 {% endblock content %}

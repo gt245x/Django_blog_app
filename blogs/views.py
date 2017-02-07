@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 
-
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Blog
 from .forms import BlogForm
 
@@ -10,10 +10,23 @@ from .forms import BlogForm
 
 
 def blog_list(request):
-    blog_list = Blog.objects.all()
+    blog_list = Blog.objects.all().order_by("-timeposted")
+    paginator = Paginator(blog_list, 10) # Show 10 contacts per page
+    page_request_var = 'page'
+    page = request.GET.get(page_request_var)
+    try:
+        blogset = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        blogset = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        blogset = paginator.page(paginator.num_pages)
+
     context = {
-        "blog_list" : blog_list,
-        "title" : "BlogPost"
+        "blogset" : blogset,
+        "title" : "BlogPost",
+        "page_request_var" : page_request_var,
     }
     return render(request, 'blogs/index.html', context)
 
