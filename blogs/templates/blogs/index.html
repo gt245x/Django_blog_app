@@ -1,0 +1,24 @@
+{% extends 'blogs/base.html' %}
+{% block content %}
+
+<div class="blog-container container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <h3> Blogs </h3>
+        </div>
+        {% if blogs %}
+            {% for blog in blogs %}
+                <div class="col-sm-8">
+                    <div class="thumbnail">
+                        <a href="#">
+                            <img src="" class="img-responsive"/>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+    </div>
+
+</div>
+{% endblock content %}
