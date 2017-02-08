@@ -9,3 +9,8 @@ body {
 .navbar-brand {
     font-family: 'Satisfy', cursive;
 }
+
+.err {
+    color: red;
+    font-weight: bold;
+}

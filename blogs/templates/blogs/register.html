@@ -1,4 +1,6 @@
-{% extends 'blogs/base.html' %}
+{% extends 'blogs/base_visitor.html' %}
+{% block title %}Register{% endblock %}
+{% block register_active %}active{% endblock %}
 
 {% block content %}
 
@@ -7,7 +9,7 @@
         <div class="col-sm-12 col-md-7">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <h3>Create a New Blog</h3>
+                    <h3>Register for an Account</h3>
                     {% if error_message %}
                         <p class="err">{{ error_message }}</p>
                     {% endif %}
@@ -20,31 +22,14 @@
                             </div>
                         </div>
                     </form>
-
-                    <div class="col-sm-offset-2">
-                        <a href="{% url 'blogs:list' %}"><button class="btn btn-info btn-sm">
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                        Cancel</button>
-                        </a>
-                    </div>
-
+                </div>
+                <div class="panel-footer">
+                    Already have an account? <a href="{% url 'blogs:login_user' %}">Click here</a> to log in.
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 {% endblock content %}
