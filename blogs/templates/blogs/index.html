@@ -10,14 +10,18 @@
             {% for blog in blogset %}
                 <div class="col-sm-8">
                     <div class="thumbnail">
-                        <a href="{{blog.get_absolute_url}}">
-                            <img src="{{blog.image_url}}" class="img-responsive"/>
-                        </a>
+                        <h2><a href="{{blog.get_absolute_url}}">{{blog.title}}</a></h2>
+                        <p>Posted By: {{blog.timeposted}}</p>
+                        <div class="col-sm-3">
+                            <a href="{{blog.get_absolute_url}}">
+                                <img src="{{blog.image_url}}" class="img-responsive"/>
+                            </a>
+                        </div>
                         <div class="caption">
-                            <h3><a href="#">{{blog.title}}</a><small> {{blog.timeposted}}</small></h3>
                             <p>{{blog.content | linebreaks}}</p>
                             <p><a href="{{blog.get_absolute_url}}" class="btn btn-primary" role="button">View Details</a></p>
                         </div>
+
                     </div>
                 </div>
             {% endfor %}
