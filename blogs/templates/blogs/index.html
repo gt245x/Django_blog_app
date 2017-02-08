@@ -11,15 +11,15 @@
                 <div class="col-sm-8">
                     <div class="thumbnail">
                         <h2><a href="{{blog.get_absolute_url}}">{{blog.title}}</a></h2>
-                        <p>Posted By: {{blog.timeposted}}</p>
+                        <p>Posted by {{blog.user}}: {{blog.timeposted}}</p>
                         <div class="col-sm-3">
                             <a href="{{blog.get_absolute_url}}">
                                 <img src="{{blog.image_url}}" class="img-responsive"/>
                             </a>
                         </div>
                         <div class="caption">
-                            <p>{{blog.content | linebreaks}}</p>
-                            <p><a href="{{blog.get_absolute_url}}" class="btn btn-primary" role="button">View Details</a></p>
+                            <p>{{blog.content | linebreaks | truncatechars:120 }}</p>
+                            <p><a href="{{blog.get_absolute_url}}" class="btn btn-primary" role="button">READ MORE</a></p>
                         </div>
 
                     </div>
@@ -40,7 +40,7 @@
 <div class="pagination">
     <span class="step-links">
         {% if blogset.has_previous %}
-            <a href="?{{page_request_var}}={{ blogset.previous_page_number }}">previous</a>
+            <a href="?{{page_request_var}}={{ blogset.previous_page_number }} {% if request.GET.q %} & q={{request.GET.q}} {% endif %}">previous</a>
         {% endif %}
 
         <span class="current">
@@ -48,7 +48,7 @@
         </span>
 
         {% if blogset.has_next %}
-            <a href="?{{page_request_var}}={{ blogset.next_page_number }}">next</a>
+            <a href="?{{page_request_var}}={{ blogset.next_page_number }} {% if request.GET.q %} & q={{request.GET.q}} {% endif %}">next</a>
         {% endif %}
     </span>
 </div>
