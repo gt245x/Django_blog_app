@@ -14,7 +14,9 @@
                         <p>Posted by {{blog.user}}: {{blog.timeposted}}</p>
                         <div class="col-sm-3">
                             <a href="{{blog.get_absolute_url}}">
+                                {% if blog.image %}
                                 <img src="{{blog.image_url}}" class="img-responsive"/>
+                                {% endif %}
                             </a>
                         </div>
                         <div class="caption">

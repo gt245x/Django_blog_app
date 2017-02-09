@@ -15,6 +15,7 @@ from django.db.models import Q
 
 
 def blog_list(request):
+    """Renders all the blogs on the main page"""
     if not request.user.is_authenticated():
         return redirect("blogs:login_user")
     else:
@@ -48,6 +49,7 @@ def blog_list(request):
 
 
 def blog_create(request):
+    """Renders & handles creating new blog"""
     # if not request.user.is_staff or not request.user.is_superuser:
     #     raise Http404
     form = BlogForm(request.POST or None, request.FILES or None)
@@ -68,6 +70,7 @@ def blog_create(request):
 
 
 def blog_detail(request, slug):
+    """Renders each particular blog"""
     instance = get_object_or_404(Blog, slug=slug)
     share_string = quote_plus(instance.content)
     context= {
@@ -78,6 +81,7 @@ def blog_detail(request, slug):
     return render(request, 'blogs/blog_details.html', context)
 
 def blog_update(request, slug=None):
+    """Handles editing & update of each blog"""
     # if not request.user.is_staff or not request.user.is_superuser:
     #     raise Http404
     instance = get_object_or_404(Blog, slug=slug)
@@ -95,6 +99,7 @@ def blog_update(request, slug=None):
     return render(request, 'blogs/blog_update.html', context)
 
 def blog_delete(request, slug):
+    """Handles deleting of each blog"""
     # if not request.user.is_staff or not request.user.is_superuser:
     #     raise Http404
     instance = get_object_or_404(Blog, slug=slug)
@@ -104,6 +109,7 @@ def blog_delete(request, slug):
 
 
 def register(request):
+    """Renders and handles registration for the blog page"""
     form = UserForm(request.POST or None)
     if form.is_valid():
         user = form.save(commit=False)
@@ -122,6 +128,7 @@ def register(request):
     return render(request, 'blogs/register.html', context)
 
 def login_user(request):
+    """Renders and handles login for the blog page"""
     if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
@@ -141,5 +148,6 @@ def login_user(request):
     return render(request, 'blogs/login.html')
 
 def logout_user(request):
+    """Renders and handles logout from the blog page"""
     logout(request)
     return redirect("blogs:list")

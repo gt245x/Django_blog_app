@@ -9,7 +9,7 @@
         <div class="col-sm-8">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <h1>{{title}}</h1>
+                    <h1>{{title }}</h1>
                     {% if instance.user.get_full_name %}
                     <p>Posted by: {{instance.user.get_full_name}} <small> {{instance.timeposted}}</small></p>
                     {% else %}
@@ -21,9 +21,13 @@
                     </p>
 
                     <div class="col-sm-4">
+                    {% if instance.image %}
                     <img src="{{instance.image.url}}" class="img-responsive"/>
+                    {% endif %}
                     </div>
+                    {% autoescape on %}
                     {{instance.content | linebreaks}}<br/>
+                    {% endautoescape %}
                 </div>
             </div>
         </div>

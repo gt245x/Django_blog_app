@@ -13,6 +13,7 @@ def upload_location(instance, filename):
 
 
 class Blog(models.Model):
+    """Model for the Blog"""
     user = models.ForeignKey(settings.AUTH_USER_MODEL, default=1)
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True)
