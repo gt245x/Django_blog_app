@@ -1,9 +1,9 @@
 {% extends 'blogs/base.html' %}
-
+{% load urlify %}
 {% block head_title %}{{instance.title }} | {{block.super}}{% endblock head_title %}
 
 {% block content %}
-
+{% autoescape on %}
 <div class="blog-container container-fluid">
     <div class="row">
         <div class="col-sm-8">
@@ -25,7 +25,7 @@
                     <img src="{{instance.image.url}}" class="img-responsive"/>
                     {% endif %}
                     </div>
-                    {% autoescape on %}
+
                     {{instance.content | linebreaks}}<br/>
                     {% endautoescape %}
                 </div>

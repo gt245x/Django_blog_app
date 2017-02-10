@@ -10,9 +10,25 @@ from .models import Blog
 from .forms import BlogForm, UserForm
 from django.db.models import Q
 
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.models import User
+import json
 
 # Create your views here.
 
+def must_be_yours(func):
+    """Decorator function to test ownership of object"""
+    def check_and_call(request, *args, **kwargs):
+        user = request.user
+        print user.id
+        slug = kwargs["slug"]
+        blog = Blog.objects.get(slug=slug)
+        if not (blog.user.id == request.user.id):
+            return HttpResponse("""The blog was not authored by you!! You are
+                not permitted. Create your own damn blog""" ,
+                                content_type="application/json", status=403)
+        return func(request, *args,  **kwargs)
+    return check_and_call
 
 def blog_list(request):
     """Renders all the blogs on the main page"""
@@ -68,7 +84,6 @@ def blog_create(request):
         }
         return render(request, 'blogs/create_blog.html', context)
 
-
 def blog_detail(request, slug):
     """Renders each particular blog"""
     instance = get_object_or_404(Blog, slug=slug)
@@ -80,6 +95,7 @@ def blog_detail(request, slug):
     }
     return render(request, 'blogs/blog_details.html', context)
 
+@must_be_yours
 def blog_update(request, slug=None):
     """Handles editing & update of each blog"""
     # if not request.user.is_staff or not request.user.is_superuser:
@@ -98,6 +114,7 @@ def blog_update(request, slug=None):
     }
     return render(request, 'blogs/blog_update.html', context)
 
+@must_be_yours
 def blog_delete(request, slug):
     """Handles deleting of each blog"""
     # if not request.user.is_staff or not request.user.is_superuser:
@@ -151,3 +168,5 @@ def logout_user(request):
     """Renders and handles logout from the blog page"""
     logout(request)
     return redirect("blogs:list")
+
+
