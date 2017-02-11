@@ -20,7 +20,6 @@ def must_be_yours(func):
     """Decorator function to test ownership of object"""
     def check_and_call(request, *args, **kwargs):
         user = request.user
-        print user.id
         slug = kwargs["slug"]
         blog = Blog.objects.get(slug=slug)
         if not (blog.user.id == request.user.id):
